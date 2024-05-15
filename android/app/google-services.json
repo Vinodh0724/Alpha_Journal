@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "327495814790",
+    "project_id": "alpha-journal-app",
+    "storage_bucket": "alpha-journal-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327495814790:android:e0b59822a24426611acb07",
+        "android_client_info": {
+          "package_name": "com.example.apha_journal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3ulDyLMRnN31H7dveclg9O6l78VFewaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
