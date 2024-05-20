@@ -11,7 +11,7 @@ import '../../blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/sign_up_bloc/sign_up_bloc.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();

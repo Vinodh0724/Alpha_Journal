@@ -1,11 +1,11 @@
-import 'package:apha_journal/blocs/sign_in_bloc/sign_in_bloc.dart';
+//import 'package:apha_journal/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:apha_journal/screens/home/drawer.dart';
 import 'package:apha_journal/screens/home/goals_screen.dart';
 import 'package:apha_journal/screens/home/journal_entry_screen.dart';
 import 'package:apha_journal/screens/home/profile_page.dart';
 import 'package:apha_journal/screens/home/user_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
