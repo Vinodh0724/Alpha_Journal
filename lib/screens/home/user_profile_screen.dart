@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const JournalScreen()),
+              MaterialPageRoute(builder: (context) =>  JournalScreen()),
               );
             }
           ),
@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const GoalsScreen()),
+              MaterialPageRoute(builder: (context) =>  GoalsScreen()),
               );
             }
           ),
