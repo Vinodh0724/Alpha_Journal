@@ -1,7 +1,7 @@
 import 'package:apha_journal/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:apha_journal/screens/home/my_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   
@@ -41,7 +41,7 @@ class MyDrawer extends StatelessWidget {
               text: 'L O G O U T',
               onTap: () {
                           context.read<SignInBloc>().add(const SignOutRequired());
-                        }, 
+                        },
             ),
           ),
         ],

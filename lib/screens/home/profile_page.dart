@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:apha_journal/screens/home/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:apha_journal/screens/home/components/text_box.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _ProfileState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instanceFor(
-    bucket: 'gs://alpha-journal-app.appspot.com', // Add your Firebase Storage bucket URL here
+    bucket: 'gs://alpha-journal-app.appspot.com',
   );
   final ImagePicker _picker = ImagePicker();
 
@@ -29,30 +29,40 @@ class _ProfileState extends State<ProfilePage> {
   final TextEditingController birthDateController = TextEditingController();
   final TextEditingController professionController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+
+  bool _isAgeSaved = false; // Flag to track if the age has been saved
 
   // Function to fetch user data from Firestore
-  Future<void> _fetchUserData() async {
-    DocumentSnapshot userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
-    if (userDoc.exists) {
-      setState(() {
-        usernameController.text = userDoc['username'] ?? 'Empty';
-        birthDateController.text = userDoc['birthDate'] ?? 'Empty';
-        professionController.text = userDoc['profession'] ?? 'Empty';
-        bioController.text = userDoc['bio'] ?? 'Empty';
-        // Retrieve and set the profile image URL
-        _imageUrl = userDoc['profileImageUrl'];
-      });
-    }
+Future<void> _fetchUserData() async {
+  DocumentSnapshot userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+  if (userDoc.exists) {
+    final data = userDoc.data() as Map<String, dynamic>?;
+
+    setState(() {
+      usernameController.text = data?.containsKey('username') == true ? data!['username'] as String? ?? 'Empty' : 'Empty';
+      birthDateController.text = data?.containsKey('birth of date') == true ? data!['birth of date'] as String? ?? 'Empty' : 'Empty';
+      professionController.text = data?.containsKey('profession') == true ? data!['profession'] as String? ?? 'Empty' : 'Empty';
+      bioController.text = data?.containsKey('bio') == true ? data!['bio'] as String? ?? 'Empty' : 'Empty';
+      ageController.text = data?.containsKey('age') == true ? data!['age']?.toString() ?? '' : '';
+      _imageUrl = data?.containsKey('profileImageUrl') == true ? data!['profileImageUrl'] as String? : null;
+      _isAgeSaved = data?.containsKey('age') == true;
+    });
   }
+}
+
 
   // Function to pick an image from gallery
   Future<void> _pickImage() async {
     final pickedImage = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       String downloadURL = await _uploadImage(File(pickedImage.path));
-      setState(() {
-        _imageUrl = downloadURL;
-      });
+      if (downloadURL.isNotEmpty) {
+        await _firestore.collection('users').doc(currentUser.uid).update({'profileImageUrl': downloadURL});
+        setState(() {
+          _imageUrl = downloadURL;
+        });
+      }
     }
   }
 
@@ -71,23 +81,43 @@ class _ProfileState extends State<ProfilePage> {
 
   // Function to edit field
   Future<void> editField(String field, TextEditingController controller) async {
-    String newValue = await showDialog(
+    if (field == 'age' && _isAgeSaved) {
+      _showAgeEditNotAllowedDialog();
+      return;
+    }
+
+    String? newValue = await showDialog<String>(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Edit $field'),
+          backgroundColor: Colors.black,
+          title: Text('Edit $field', style: TextStyle(color: Colors.white)),
           content: TextField(
             controller: controller,
+            style: TextStyle(color: Colors.white),
+            keyboardType: field == 'age' ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               hintText: 'Enter new $field',
+              hintStyle: TextStyle(color: Colors.grey),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
             ),
           ),
           actions: [
+            if (field == 'age') 
+              Text(
+                'Make sure your age entered is correct and cannot be changed',
+                style: TextStyle(color: Colors.red, fontSize: 12),
+              ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(controller.text);
               },
-              child: const Text('Save'),
+              child: const Text('Save', style: TextStyle(color: Colors.white)),
             ),
           ],
         );
@@ -98,8 +128,35 @@ class _ProfileState extends State<ProfilePage> {
       await _firestore.collection('users').doc(currentUser.uid).update({field: newValue});
       setState(() {
         controller.text = newValue;
+        if (field == 'age') {
+          _isAgeSaved = true;
+        }
       });
     }
+  }
+
+  void _showAgeEditNotAllowedDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: Text('Edit Age', style: TextStyle(color: Colors.white)),
+          content: Text(
+            'You are not allowed to edit your age after it is saved.',
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -111,11 +168,26 @@ class _ProfileState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
-        title: const Text('Profile Page'),
-      ),
+  title: const Text('Profile Page', style: TextStyle(color: Colors.white)),
+  backgroundColor: const Color.fromARGB(255, 193, 110, 110),
+  leading: IconButton(
+      icon: Icon(Icons.arrow_back, color: Colors.white),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      },
+    ),
+  
+),
+
+
+
       body: ListView(
+        padding: const EdgeInsets.all(16.0),
         children: [
           const SizedBox(height: 50),
           Center(
@@ -134,7 +206,8 @@ class _ProfileState extends State<ProfilePage> {
                   )
                 : CircleAvatar(
                     radius: 60,
-                    child: Icon(Icons.add_a_photo),
+                    child: Icon(Icons.add_a_photo, color: Colors.white),
+                    backgroundColor: Colors.grey[700],
                   ),
             ),
           ),
@@ -142,37 +215,53 @@ class _ProfileState extends State<ProfilePage> {
           Text(
             currentUser.email!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey[700]),
+            style: TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.only(left: 25.0),
-            child: Text(
-              'My Details',
-              style: TextStyle(color: Colors.grey[600]),
-            ),
+          Text(
+            'My Details',
+            style: TextStyle(color: Colors.grey[600], fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.left,
           ),
-          MyTextBox(
-            text: usernameController.text,
-            sectionName: 'Username',
-            onPressed: () => editField('username', usernameController),
-          ),
-          MyTextBox(
-            text: birthDateController.text,
-            sectionName: 'Birth of date',
-            onPressed: () => editField('birthDate', birthDateController),
-          ),
-          MyTextBox(
-            text: professionController.text,
-            sectionName: 'Profession',
-            onPressed: () => editField('profession', professionController),
-          ),
-          MyTextBox(
-            text: bioController.text,
-            sectionName: 'Bio',
-            onPressed: () => editField('bio', bioController),
-          ),
+          const SizedBox(height: 20),
+          _buildDetailTile('Username:', usernameController),
+          const SizedBox(height: 10),
+          _buildDetailTile('Birth of date:', birthDateController),
+          const SizedBox(height: 10),
+          _buildDetailTile('Profession:', professionController),
+          const SizedBox(height: 10),
+          _buildDetailTile('Bio:', bioController),
+          const SizedBox(height: 10),
+          _buildDetailTile('Age:', ageController, ageBox: true),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDetailTile(String title, TextEditingController controller, {bool ageBox = false}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(10),
+        border: ageBox && controller.text.isEmpty
+            ? Border.all(color: Colors.red, width: 2.0)
+            : null,
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: Text(
+          title,
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.edit, color: Colors.white),
+          onPressed: () => editField(title.replaceFirst(':', '').trim().toLowerCase(), controller),
+        ),
+        title: Text(
+          controller.text.isEmpty ? 'No Data' : controller.text,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
@@ -183,7 +272,8 @@ class _ProfileState extends State<ProfilePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Profile Picture'),
+          backgroundColor: Colors.black,
+          title: Text('Profile Picture', style: TextStyle(color: Colors.white)),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -200,7 +290,7 @@ class _ProfileState extends State<ProfilePage> {
                       Navigator.of(context).pop();
                       _pickImage();
                     },
-                    child: Text('Change Picture'),
+                    child: Text('Change Picture', style: TextStyle(color: Colors.white)),
                   ),
                   SizedBox(width: 20),
                   TextButton(
@@ -208,7 +298,7 @@ class _ProfileState extends State<ProfilePage> {
                       Navigator.of(context).pop();
                       _viewImage();
                     },
-                    child: Text('View Full Image'),
+                    child: Text('View Full Image', style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -226,6 +316,7 @@ class _ProfileState extends State<ProfilePage> {
       builder: (context) {
         return Dialog(
           child: Container(
+            color: Colors.black,
             width: double.infinity,
             height: 400,
             child: _imageUrl != null
@@ -234,7 +325,7 @@ class _ProfileState extends State<ProfilePage> {
                   fit: BoxFit.cover,
                 )
               : Center(
-                  child: Text('No Image Available'),
+                  child: Text('No Image Available', style: TextStyle(color: Colors.white)),
                 ),
           ),
         );
