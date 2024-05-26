@@ -15,7 +15,7 @@ class MyAppView extends StatelessWidget {
         title: 'Alpha Journal',
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
-              background: Color.fromARGB(255, 57, 55, 55),
+              background: Color.fromARGB(255, 0, 0, 0),
               onBackground: Color.fromARGB(255, 0, 0, 0),
               primary: Color.fromRGBO(30, 255, 0, 1),
               onPrimary: Colors.black,
