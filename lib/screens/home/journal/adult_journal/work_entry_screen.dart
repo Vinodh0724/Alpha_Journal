@@ -386,4 +386,3 @@ class _WorkEntryScreenState extends State<WorkEntryScreen> {
     );
   }
 }
-

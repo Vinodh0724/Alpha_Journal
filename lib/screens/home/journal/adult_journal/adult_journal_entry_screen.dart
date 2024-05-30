@@ -1,11 +1,15 @@
 import 'dart:math';
-import 'package:apha_journal/screens/home/journal/adult_journal/outing_entry_screen.dart';
-import 'package:apha_journal/screens/home/journal/adult_journal/personal_entry_screen.dart';
-import 'package:apha_journal/screens/home/journal/adult_journal/work_entry_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'adult_view_entry_screen.dart';
 import '../add_entry_screen.dart';
+import 'outing_entry_screen.dart';
+import 'personal_entry_screen.dart';
+import 'update_outing_entry_screen.dart';
+import 'update_personal_entry_screen.dart';
+import 'update_work_entry_screen.dart';
+import 'work_entry_screen.dart';
 
 class AdultJournalScreen extends StatefulWidget {
   const AdultJournalScreen({Key? key}) : super(key: key);
@@ -25,27 +29,27 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
 
   void _navigateToTemplate(String templateType) {
     switch (templateType) {
-      case 'Work':
+      case 'work':
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WorkEntryScreen(),
+            builder: (context) => const WorkEntryScreen(),
           ),
         );
         break;
-      case 'Personal':
+      case 'personal':
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PersonalEntryScreen(),
+            builder: (context) => const PersonalEntryScreen(),
           ),
         );
         break;
-      case 'Outing':
+      case 'outing':
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OutingEntryScreen(),
+            builder: (context) => const OutingEntryScreen(),
           ),
         );
         break;
@@ -68,24 +72,19 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to Adults Journal!'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: const Text('Adult Journal'),
+        backgroundColor: Colors.blue,
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 labelText: 'Search',
-                labelStyle: TextStyle(color: Colors.white),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
+                labelStyle: const TextStyle(color: Colors.black),
+                prefixIcon: const Icon(Icons.search, color: Colors.black),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -103,9 +102,9 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
               spacing: 8.0,
               children: [
                 ActionChip(
-                  label: Text('Show All'),
-                  labelStyle: TextStyle(color: Colors.black),
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  label: const Text('Show All'),
+                  labelStyle: const TextStyle(color: Colors.black),
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   onPressed: () {
                     setState(() {
                       showAllEntries = true;
@@ -115,8 +114,8 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
                 ...tags.map((tag) {
                   return ActionChip(
                     label: Text(tag),
-                    labelStyle: TextStyle(color: Colors.black),
-                    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     onPressed: () {
                       setState(() {
                         searchQuery = tag;
@@ -128,60 +127,16 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 1100,
-              padding: const EdgeInsets.all(8.0),
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 97, 63, 7),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Suggested Entries for You',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Wrap(
-                    spacing: 10,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => _navigateToTemplate('Work'),
-                        child: Text('Work'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _navigateToTemplate('Personal'),
-                        child: Text('Personal'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _navigateToTemplate('Outing'),
-                        child: Text('Outing'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('entries').where('userId', isEqualTo: user?.uid).orderBy('timestamp', descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text(
                       'No entries yet.',
                       style: TextStyle(color: Colors.white),
@@ -205,6 +160,9 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
                     var entry = filteredEntries[index];
                     var images = entry['images'] as List<dynamic>;
                     bool isImportant = (entry.data() as Map<String, dynamic>).containsKey('isImportant') && (entry['isImportant'] as bool? ?? false);
+                    var title = entry['title'] ?? 'No Title';
+                    var description = entry['description'] ?? 'No Description';
+                    var templateType = title.toString().split(':').first.toLowerCase();
 
                     final random = Random();
                     final Color randomColor = Color.fromRGBO(
@@ -217,18 +175,18 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
                     return Card(
                       color: randomColor,
                       child: ListTile(
-                        leading: isImportant ? Icon(Icons.star, color: Colors.yellow) : SizedBox(width: 24),
+                        leading: isImportant ? const Icon(Icons.star, color: Colors.yellow) : const SizedBox(width: 24),
                         title: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            entry['title'],
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
+                            title,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
                           ),
                         ),
                         subtitle: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            entry['description'],
+                            description,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 17, fontFamily: 'Times New Roman'),
@@ -241,11 +199,22 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
                                 ? Image.network(images.first, width: 50, height: 50)
                                 : Container(),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.black),
+                              icon: const Icon(Icons.delete, color: Colors.black),
                               onPressed: () => _deleteEntry(entry.id),
                             ),
                           ],
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AdultViewEntryScreen(
+                                documentId: entry.id,
+                                templateType: templateType,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
@@ -257,14 +226,9 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddEntryScreen()),
-          ).then((_) {
-            // Optionally, you could refresh the state here if needed
-          });
+          _navigateToTemplate('outing');
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

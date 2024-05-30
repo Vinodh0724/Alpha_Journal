@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../add_entry_screen.dart';
+import 'read_entry_screen.dart';
+//import 'view_update_entry_screen.dart';
 
 class OldJournalScreen extends StatefulWidget {
   const OldJournalScreen({Key? key}) : super(key: key);
@@ -29,7 +31,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DailyEntryScreen(), // Navigate to SchoolEntryScreen
+            builder: (context) => DailyEntryScreen(), // Navigate to DailyEntryScreen
           ),
         );
         break;
@@ -37,7 +39,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PersonalEntryScreen(), // Navigate to SportsEntryScreen
+            builder: (context) => PersonalEntryScreen(), // Navigate to PersonalEntryScreen
           ),
         );
         break;
@@ -45,7 +47,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HealthEntryScreen(),
+            builder: (context) => HealthEntryScreen(), // Navigate to HealthEntryScreen
           ),
         );
         break;
@@ -56,6 +58,18 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
 
   void _deleteEntry(String entryId) {
     _firestore.collection('entries').doc(entryId).delete();
+  }
+
+  void _viewEntry(String documentId, Map<String, dynamic> data) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewUpdateEntryScreen(
+          documentId: documentId,
+          data: data,
+        ),
+      ),
+    );
   }
 
   @override
@@ -235,6 +249,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                               ),
                             ],
                           ),
+                          onTap: () => _viewEntry(entry.id, entry.data() as Map<String, dynamic>),
                         ),
                       );
                     },
@@ -269,39 +284,40 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                       );
 
                       return Card(
-                      color: randomColor,
-                      child: ListTile(
-                        leading: isImportant ? Icon(Icons.star, color: Colors.yellow) : SizedBox(width: 24),
-                        title: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            entry['title'],
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
-                          ),
-                        ),
-                        subtitle: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            entry['description'],
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 17, fontFamily: 'Times New Roman'),
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            images.isNotEmpty
-                                ? Image.network(images.first, width: 50, height: 50)
-                                : Container(),
-                            IconButton(
-                              icon: Icon(Icons.delete, color: Colors.black),
-                              onPressed: () => _deleteEntry(entry.id),
+                        color: randomColor,
+                        child: ListTile(
+                          leading: isImportant ? Icon(Icons.star, color: Colors.yellow) : SizedBox(width: 24),
+                          title: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              entry['title'],
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
                             ),
-                          ],
+                          ),
+                          subtitle: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              entry['description'],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 17, fontFamily: 'Times New Roman'),
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              images.isNotEmpty
+                                  ? Image.network(images.first, width: 50, height: 50)
+                                  : Container(),
+                              IconButton(
+                                icon: Icon(Icons.delete, color: Colors.black),
+                                onPressed: () => _deleteEntry(entry.id),
+                              ),
+                            ],
+                          ),
+                          onTap: () => _viewEntry(entry.id, entry.data() as Map<String, dynamic>),
                         ),
-                      ),
-                    );
+                      );
                     },
                   );
                 }
@@ -324,4 +340,3 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
     );
   }
 }
-
