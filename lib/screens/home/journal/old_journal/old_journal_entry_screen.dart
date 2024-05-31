@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../add_entry_screen.dart';
+import 'read_entry_screen.dart';
+
+
 
 class OldJournalScreen extends StatefulWidget {
   const OldJournalScreen({Key? key}) : super(key: key);
@@ -58,6 +61,16 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
     _firestore.collection('entries').doc(entryId).delete();
   }
 
+  void _navigateToReadEntry(String entryId) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ReadEntryScreen(documentId: entryId),
+    ),
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,12 +91,14 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              
               onChanged: (value) {
                 setState(() {
                   searchQuery = value;
                 });
               },
             ),
+            
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -300,6 +315,8 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                             ),
                           ],
                         ),
+                       onTap: () => _navigateToReadEntry(entry.id),
+
                       ),
                     );
                     },
