@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../add_entry_screen.dart';
+import 'read_entry_screen.dart';
 
 class AdultJournalScreen extends StatefulWidget {
   const AdultJournalScreen({Key? key}) : super(key: key);
@@ -63,6 +64,17 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
       );
     }
   }
+
+void _navigateToReadEntry(String entryId) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ReadEntryScreen(documentId: entryId),
+    ),
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -246,6 +258,7 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
                             ),
                           ],
                         ),
+                            onTap: () => _navigateToReadEntry(entry.id),
                       ),
                     );
                   },
