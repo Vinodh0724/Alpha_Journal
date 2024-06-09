@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AgeBasedJournalTemplate extends StatefulWidget {
-  const AgeBasedJournalTemplate({Key? key}) : super(key: key);
+  const AgeBasedJournalTemplate({super.key});
 
   @override
   _AgeBasedJournalTemplateState createState() => _AgeBasedJournalTemplateState();
@@ -91,19 +91,19 @@ class _AgeBasedJournalTemplateState extends State<AgeBasedJournalTemplate> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Update Age', style: TextStyle(color: Colors.white)),
-          content: Text(
+          title: const Text('Update Age', style: TextStyle(color: Colors.white)),
+          content: const Text(
             'Your age information is not available. Please update your age in the profile page.',
             style: TextStyle(color: Colors.white),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('OK', style: TextStyle(color: Colors.white)),
+              child: const Text('OK', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
                 );
               },
             ),
@@ -120,17 +120,17 @@ class _AgeBasedJournalTemplateState extends State<AgeBasedJournalTemplate> {
       builder: (BuildContext context) {
         return Theme(
           data: Theme.of(context).copyWith(
-            dialogTheme: DialogTheme(
+            dialogTheme: const DialogTheme(
               contentTextStyle: TextStyle(color: Colors.white),
             ),
           ),
           child: AlertDialog(
             backgroundColor: Colors.black, // Set dialog background color if needed
-            title: Text('Journal Template', style: TextStyle(color: Colors.white)),
-            content: Text('Your age is $age. The suitable journal template for you is $template.', style: TextStyle(color: Colors.white)),
+            title: const Text('Journal Template', style: TextStyle(color: Colors.white)),
+            content: Text('Your age is $age. The suitable journal template for you is $template.', style: const TextStyle(color: Colors.white)),
             actions: <Widget>[
               TextButton(
-                child: Text('OK', style: TextStyle(color: Colors.white)),
+                child: const Text('OK', style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   _setUserAcceptedJournalTemplate();
                   Navigator.of(context).pop(); // Close the dialog
@@ -200,11 +200,11 @@ class _AgeBasedJournalTemplateState extends State<AgeBasedJournalTemplate> {
     Widget targetScreen;
 
     if (template == 'Kids Journal') {
-      targetScreen = KidsJournalScreen();
+      targetScreen = const KidsJournalScreen();
     } else if (template == 'Adults Journal') {
-      targetScreen = AdultJournalScreen();
+      targetScreen = const AdultJournalScreen();
     } else {
-      targetScreen = OldJournalScreen();
+      targetScreen = const OldJournalScreen();
     }
 
     Navigator.pushReplacement(

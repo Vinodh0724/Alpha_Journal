@@ -11,7 +11,7 @@ import 'read_entry_screen.dart';
 
 
 class OldJournalScreen extends StatefulWidget {
-  const OldJournalScreen({Key? key}) : super(key: key);
+  const OldJournalScreen({super.key});
 
   @override
   _OldJournalScreenState createState() => _OldJournalScreenState();
@@ -32,7 +32,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DailyEntryScreen(), // Navigate to SchoolEntryScreen
+            builder: (context) => const DailyEntryScreen(), // Navigate to SchoolEntryScreen
           ),
         );
         break;
@@ -40,7 +40,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PersonalEntryScreen(), // Navigate to SportsEntryScreen
+            builder: (context) => const PersonalEntryScreen(), // Navigate to SportsEntryScreen
           ),
         );
         break;
@@ -48,7 +48,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HealthEntryScreen(),
+            builder: (context) => const HealthEntryScreen(),
           ),
         );
         break;
@@ -75,18 +75,18 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to Elders Journal!'),
+        title: const Text('Welcome to Elders Journal!'),
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 labelText: 'Search',
-                labelStyle: TextStyle(color: Colors.white),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
+                labelStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -106,9 +106,9 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
               spacing: 8.0,
               children: [
                 ActionChip(
-                  label: Text('Show All'),
-                  labelStyle: TextStyle(color: Colors.black),
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  label: const Text('Show All'),
+                  labelStyle: const TextStyle(color: Colors.black),
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   onPressed: () {
                     setState(() {
                       showAllEntries = true;
@@ -118,8 +118,8 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                 ...tags.map((tag) {
                   return ActionChip(
                     label: Text(tag),
-                    labelStyle: TextStyle(color: Colors.black),
-                    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     onPressed: () {
                       setState(() {
                         searchQuery = tag;
@@ -127,7 +127,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                       });
                     },
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),
@@ -153,21 +153,21 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Wrap(
                     spacing: 10,
                     children: [
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Daily'),
-                        child: Text('Daily'),
+                        child: const Text('Daily'),
                       ),
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Personal'),
-                        child: Text('Personal'),
+                        child: const Text('Personal'),
                       ),
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Health'),
-                        child: Text('Health'),
+                        child: const Text('Health'),
                       ),
                     ],
                   ),
@@ -180,11 +180,11 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
               stream: _firestore.collection('entries').where('userId', isEqualTo: user?.uid).orderBy('timestamp', descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text(
                       'No entries yet.',
                       style: TextStyle(color: Colors.white),
@@ -218,15 +218,15 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (isImportant)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 4.0),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 4.0),
                                   child: Icon(Icons.star, color: Colors.yellow),
                                 ),
                               SizedBox(width: isImportant ? 8.0 : 0), // Add space if star icon is present
                               Expanded(
                                 child: Text(
                                   entry['title'],
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
                                 ),
                               ),
                             ],
@@ -245,7 +245,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                             children: [
                               if (images.isNotEmpty) Image.network(images.first, width: 50, height: 50),
                               IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 onPressed: () => _deleteEntry(entry.id),
                               ),
                             ],
@@ -286,12 +286,12 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                       return Card(
                       color: randomColor,
                       child: ListTile(
-                        leading: isImportant ? Icon(Icons.star, color: Colors.yellow) : SizedBox(width: 24),
+                        leading: isImportant ? const Icon(Icons.star, color: Colors.yellow) : const SizedBox(width: 24),
                         title: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             entry['title'],
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
                           ),
                         ),
                         subtitle: Align(
@@ -310,7 +310,7 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
                                 ? Image.network(images.first, width: 50, height: 50)
                                 : Container(),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.black),
+                              icon: const Icon(Icons.delete, color: Colors.black),
                               onPressed: () => _deleteEntry(entry.id),
                             ),
                           ],
@@ -331,12 +331,12 @@ class _OldJournalScreenState extends State<OldJournalScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddEntryScreen()),
+            MaterialPageRoute(builder: (context) => const AddEntryScreen()),
           ).then((_) {
             // Optionally, you could refresh the state here if needed
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

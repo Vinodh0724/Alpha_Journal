@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 class TuitionEntryScreen extends StatefulWidget {
   final Map<String, String>? templateData;
 
-  const TuitionEntryScreen({Key? key, this.templateData}) : super(key: key);
+  const TuitionEntryScreen({super.key, this.templateData});
 
   @override
   _TuitionEntryScreenState createState() => _TuitionEntryScreenState();
@@ -20,7 +20,7 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
   final TextEditingController _experienceController = TextEditingController(); // New field for experience
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _feesController = TextEditingController();
-  List<File> _images = []; 
+  final List<File> _images = []; 
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -83,30 +83,30 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Add Tuition Entry',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 156, 54, 54),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveEntry,
           ),
         ],
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Add Images',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -117,11 +117,11 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 33, 33),
+                        color: const Color.fromARGB(255, 34, 33, 33),
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Color.fromARGB(255, 43, 255, 0), width: 2),
+                        border: Border.all(color: const Color.fromARGB(255, 43, 255, 0), width: 2),
                       ),
-                      child: Icon(Icons.add_a_photo, color: Colors.white),
+                      child: const Icon(Icons.add_a_photo, color: Colors.white),
                     ),
                   ),
                   ..._images.map((image) {
@@ -132,7 +132,7 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                           height: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color.fromARGB(255, 255, 0, 0), width: 2),
+                            border: Border.all(color: const Color.fromARGB(255, 255, 0, 0), width: 2),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
@@ -147,7 +147,7 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                         Positioned(
                           right: 0,
                           child: IconButton(
-                            icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                            icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                             onPressed: () {
                               setState(() {
                                 _images.remove(image);
@@ -157,11 +157,11 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Title',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -169,24 +169,24 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                 controller: _titleController,
                 decoration: InputDecoration(
                   hintText: 'Enter your tuition entry title',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Subject', // New field for subject
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -194,25 +194,25 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                 controller: _subjectController,
                 decoration: InputDecoration(
                   hintText: 'Enter the subject of tuition',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
               
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Description',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -220,25 +220,25 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   hintText: 'Enter your tuition entry description',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Experience', // New field for experience
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
@@ -246,25 +246,25 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                 controller: _experienceController,
                 decoration: InputDecoration(
                   hintText: 'Enter your tuition experience',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Tuition Fees',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -272,23 +272,23 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                 controller: _feesController,
                 decoration: InputDecoration(
                   hintText: 'Enter tuition fees',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Container(
@@ -314,20 +314,20 @@ class _TuitionEntryScreenState extends State<TuitionEntryScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Text(
+                  const SizedBox(width: 8),
+                  const Text(
                     'Star This Entry as Important',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton.icon(
-                  icon: Icon(Icons.save),
-                  label: Text('Save Entry'),
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save Entry'),
                   onPressed: _saveEntry,
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.red,

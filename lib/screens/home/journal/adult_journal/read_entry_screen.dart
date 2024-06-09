@@ -26,7 +26,7 @@ class ReadEntryScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white)));
+            return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white)));
           }
           if (!snapshot.hasData || !snapshot.data!.exists) {
             return const Center(child: Text('Entry not found', style: TextStyle(color: Colors.white)));
@@ -74,9 +74,9 @@ class ReadEntryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   if (templateType == 'outing') ...[
-                    Text(
+                    const Text(
                       'Place',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -91,9 +91,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Memories',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -108,9 +108,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Reflection',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -125,9 +125,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Date',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -143,9 +143,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   if (templateType == 'personal') ...[
-                    Text(
+                    const Text(
                       'Description',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -160,9 +160,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Mood',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -177,9 +177,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Memories',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -194,9 +194,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Reflection',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -211,9 +211,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Date',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -229,9 +229,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   if (templateType == 'work') ...[
-                    Text(
+                    const Text(
                       'Achievements',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -246,9 +246,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Job Worked',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -271,9 +271,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Reflection',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -288,9 +288,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Date',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -306,9 +306,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Images',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -330,9 +330,9 @@ class ReadEntryScreen extends StatelessWidget {
                         color: isImportant ? Colors.yellow : Colors.white,
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         'Important Entry',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                         ),

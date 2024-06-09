@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +6,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class AddGoalScreen extends StatefulWidget {
-  const AddGoalScreen({Key? key}) : super(key: key);
+  const AddGoalScreen({super.key});
 
   @override
   _AddGoalScreenState createState() => _AddGoalScreenState();
@@ -16,7 +15,7 @@ class AddGoalScreen extends StatefulWidget {
 class _AddGoalScreenState extends State<AddGoalScreen> {
   final TextEditingController _titleController = TextEditingController();
   DateTime _startDate = DateTime.now();
-  DateTime _endDate = DateTime.now().add(Duration(days: 30));
+  DateTime _endDate = DateTime.now().add(const Duration(days: 30));
   TimeOfDay? _reminderTime;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
@@ -130,10 +129,10 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Goal', style: TextStyle(color: Colors.white)),
+        title: const Text('Add Goal', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
-            icon: Icon(Icons.save, color: Colors.white),
+            icon: const Icon(Icons.save, color: Colors.white),
             onPressed: _saveGoal,
           ),
         ],
@@ -144,102 +143,102 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               TextField(
                 controller: _titleController,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Enter goal title',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text('Start Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 16),
+              const Text('Start Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               TextField(
                 readOnly: true,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 onTap: () => _selectDate(context, true),
                 controller: TextEditingController(text: _startDate.toLocal().toString().split(' ')[0]),
                 decoration: InputDecoration(
                   hintText: 'Select start date',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text('End Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 16),
+              const Text('End Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               TextField(
                 readOnly: true,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 onTap: () => _selectDate(context, false),
                 controller: TextEditingController(text: _endDate.toLocal().toString().split(' ')[0]),
                 decoration: InputDecoration(
                   hintText: 'Select end date',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text('Reminder Time', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 16),
+              const Text('Reminder Time', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               TextField(
                 readOnly: true,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 onTap: () => _selectTime(context),
                 controller: TextEditingController(text: _reminderTime != null ? _reminderTime!.format(context) : 'Select time'),
                 decoration: InputDecoration(
                   hintText: 'Select reminder time',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 375),
+              const SizedBox(height: 375),
               // Save Goal button
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _saveGoal,
-                  child: Text('Save Goal', style: TextStyle(fontSize: 16)),
+                  child: const Text('Save Goal', style: TextStyle(fontSize: 16)),
                 ),
               ),
             ],

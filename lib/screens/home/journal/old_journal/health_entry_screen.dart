@@ -9,7 +9,7 @@ import 'package:intl/intl.dart'; // Import for date formatting
 class HealthEntryScreen extends StatefulWidget {
   final Map<String, String>? templateData;
 
-  const HealthEntryScreen({Key? key, this.templateData}) : super(key: key);
+  const HealthEntryScreen({super.key, this.templateData});
 
   @override
   _HealthEntryScreenState createState() => _HealthEntryScreenState();
@@ -22,7 +22,7 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _healthGoalsController = TextEditingController();
   DateTime? _selectedDate;
-  List<XFile> _images = []; // Change List<File> to List<XFile>
+  final List<XFile> _images = []; // Change List<File> to List<XFile>
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -86,30 +86,30 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Add Health Entry',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 156, 54, 54),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveEntry,
           ),
         ],
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Add Images',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -120,11 +120,11 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 33, 33),
+                        color: const Color.fromARGB(255, 34, 33, 33),
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Color.fromARGB(255, 43, 255, 0), width: 2),
+                        border: Border.all(color: const Color.fromARGB(255, 43, 255, 0), width: 2),
                       ),
-                      child: Icon(Icons.add_a_photo, color: Colors.white),
+                      child: const Icon(Icons.add_a_photo, color: Colors.white),
                     ),
                   ),
                   ..._images.map((image) {
@@ -135,7 +135,7 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                           height: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color.fromARGB(255, 255, 0, 0), width: 2),
+                            border: Border.all(color: const Color.fromARGB(255, 255, 0, 0), width: 2),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
@@ -150,7 +150,7 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                         Positioned(
                           right: 0,
                           child: IconButton(
-                            icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                            icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                             onPressed: () {
                               setState(() {
                                 _images.remove(image);
@@ -160,11 +160,11 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Title',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -172,24 +172,24 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                 controller: _titleController,
                 decoration: InputDecoration(
                   hintText: 'Enter your health journal entry title',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Date',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -212,23 +212,23 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.white),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   child: Row(
                     children: [
-                      Icon(Icons.calendar_today, color: Colors.white),
-                      SizedBox(width: 10),
+                      const Icon(Icons.calendar_today, color: Colors.white),
+                      const SizedBox(width: 10),
                       Text(
                         _selectedDate != null
                             ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
                             : 'Select Date',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Health Problem',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -236,24 +236,24 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                 controller: _healthProblemController,
                 decoration: InputDecoration(
                   hintText: 'Enter the health problem you faced',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Medicine Name',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -261,24 +261,24 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                 controller: _medicineNameController,
                 decoration: InputDecoration(
                   hintText: 'Enter the name of the medicine you took',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Description',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -286,25 +286,25 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   hintText: 'Enter your health journal entry description',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Health Goals',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -312,24 +312,24 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                 controller: _healthGoalsController,
                 decoration: InputDecoration(
                   hintText: 'Enter your health goals',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Container(
@@ -355,20 +355,20 @@ class _HealthEntryScreenState extends State<HealthEntryScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Text(
+                  const SizedBox(width: 8),
+                  const Text(
                     'Star This Entry as Important',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton.icon(
-                  icon: Icon(Icons.save),
-                  label: Text('Save Entry'),
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save Entry'),
                   onPressed: _saveEntry,
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.red,

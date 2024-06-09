@@ -9,7 +9,7 @@ import '../add_entry_screen.dart';
 import 'read_entry_screen.dart';
 
 class AdultJournalScreen extends StatefulWidget {
-  const AdultJournalScreen({Key? key}) : super(key: key);
+  const AdultJournalScreen({super.key});
 
   @override
   _AdultJournalScreenState createState() => _AdultJournalScreenState();
@@ -30,7 +30,7 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WorkEntryScreen(),
+            builder: (context) => const WorkEntryScreen(),
           ),
         );
         break;
@@ -38,7 +38,7 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PersonalEntryScreen(),
+            builder: (context) => const PersonalEntryScreen(),
           ),
         );
         break;
@@ -46,7 +46,7 @@ class _AdultJournalScreenState extends State<AdultJournalScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OutingEntryScreen(),
+            builder: (context) => const OutingEntryScreen(),
           ),
         );
         break;
@@ -80,9 +80,9 @@ void _navigateToReadEntry(String entryId) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to Adults Journal!'),
+        title: const Text('Welcome to Adults Journal!'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -93,11 +93,11 @@ void _navigateToReadEntry(String entryId) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 labelText: 'Search',
-                labelStyle: TextStyle(color: Colors.white),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
+                labelStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -115,9 +115,9 @@ void _navigateToReadEntry(String entryId) {
               spacing: 8.0,
               children: [
                 ActionChip(
-                  label: Text('Show All'),
-                  labelStyle: TextStyle(color: Colors.black),
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  label: const Text('Show All'),
+                  labelStyle: const TextStyle(color: Colors.black),
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   onPressed: () {
                     setState(() {
                       showAllEntries = true;
@@ -127,8 +127,8 @@ void _navigateToReadEntry(String entryId) {
                 ...tags.map((tag) {
                   return ActionChip(
                     label: Text(tag),
-                    labelStyle: TextStyle(color: Colors.black),
-                    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     onPressed: () {
                       setState(() {
                         searchQuery = tag;
@@ -136,7 +136,7 @@ void _navigateToReadEntry(String entryId) {
                       });
                     },
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),
@@ -162,21 +162,21 @@ void _navigateToReadEntry(String entryId) {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Wrap(
                     spacing: 10,
                     children: [
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Work'),
-                        child: Text('Work'),
+                        child: const Text('Work'),
                       ),
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Personal'),
-                        child: Text('Personal'),
+                        child: const Text('Personal'),
                       ),
                       ElevatedButton(
                         onPressed: () => _navigateToTemplate('Outing'),
-                        child: Text('Outing'),
+                        child: const Text('Outing'),
                       ),
                     ],
                   ),
@@ -189,11 +189,11 @@ void _navigateToReadEntry(String entryId) {
               stream: _firestore.collection('entries').where('userId', isEqualTo: user?.uid).orderBy('timestamp', descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text(
                       'No entries yet.',
                       style: TextStyle(color: Colors.white),
@@ -229,12 +229,12 @@ void _navigateToReadEntry(String entryId) {
                     return Card(
                       color: randomColor,
                       child: ListTile(
-                        leading: isImportant ? Icon(Icons.star, color: Colors.yellow) : SizedBox(width: 24),
+                        leading: isImportant ? const Icon(Icons.star, color: Colors.yellow) : const SizedBox(width: 24),
                         title: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             entry['title'],
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Times New Roman'),
                           ),
                         ),
                         subtitle: Align(
@@ -253,7 +253,7 @@ void _navigateToReadEntry(String entryId) {
                                 ? Image.network(images.first, width: 50, height: 50)
                                 : Container(),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.black),
+                              icon: const Icon(Icons.delete, color: Colors.black),
                               onPressed: () => _deleteEntry(entry.id),
                             ),
                           ],
@@ -272,12 +272,12 @@ void _navigateToReadEntry(String entryId) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddEntryScreen()),
+            MaterialPageRoute(builder: (context) => const AddEntryScreen()),
           ).then((_) {
             // Optionally, you could refresh the state here if needed
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

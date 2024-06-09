@@ -11,7 +11,7 @@ import 'package:user_repository/user_repository.dart';
 import '../../blocs/sign_in_bloc/sign_in_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -67,10 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Home'),
+            title: const Text('Home'),
             actions: [
               IconButton(
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout),
                 onPressed: () {
                   context.read<SignInBloc>().add(const SignOutRequired());
                 },
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AgeBasedJournalTemplate(),
+                      builder: (context) => const AgeBasedJournalTemplate(),
                     ),
                   );
                 }),
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GoalsScreen(),
+                      builder: (context) => const GoalsScreen(),
                     ),
                   );
                 }),
@@ -115,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         width: 100,
         height: 100,
-        color: Color.fromARGB(255, 92, 68, 10),
+        color: const Color.fromARGB(255, 92, 68, 10),
         child: Center(
           child: Text(
             label,
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
       ),
@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 100,
             height: 100,
-            color: Color.fromARGB(255, 92, 68, 10),
-            child: Center(
+            color: const Color.fromARGB(255, 92, 68, 10),
+            child: const Center(
               child: Text(
                 'Profile',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -146,12 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               right: 0,
               child: Container(
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minWidth: 15,
                   minHeight: 15,
                 ),

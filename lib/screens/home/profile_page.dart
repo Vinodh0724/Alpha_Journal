@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override 
   State<ProfilePage> createState() => _ProfileState();
@@ -91,25 +91,25 @@ Future<void> _fetchUserData() async {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.black,
-          title: Text('Edit $field', style: TextStyle(color: Colors.white)),
+          title: Text('Edit $field', style: const TextStyle(color: Colors.white)),
           content: TextField(
             controller: controller,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             keyboardType: field == 'age' ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               hintText: 'Enter new $field',
-              hintStyle: TextStyle(color: Colors.grey),
-              enabledBorder: UnderlineInputBorder(
+              hintStyle: const TextStyle(color: Colors.grey),
+              enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
             ),
           ),
           actions: [
             if (field == 'age') 
-              Text(
+              const Text(
                 'Make sure your age entered is correct and cannot be changed',
                 style: TextStyle(color: Colors.red, fontSize: 12),
               ),
@@ -141,8 +141,8 @@ Future<void> _fetchUserData() async {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.black,
-          title: Text('Edit Age', style: TextStyle(color: Colors.white)),
-          content: Text(
+          title: const Text('Edit Age', style: TextStyle(color: Colors.white)),
+          content: const Text(
             'You are not allowed to edit your age after it is saved.',
             style: TextStyle(color: Colors.white),
           ),
@@ -168,16 +168,16 @@ Future<void> _fetchUserData() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
   title: const Text('Profile Page', style: TextStyle(color: Colors.white)),
   backgroundColor: const Color.fromARGB(255, 193, 110, 110),
   leading: IconButton(
-      icon: Icon(Icons.arrow_back, color: Colors.white),
+      icon: const Icon(Icons.arrow_back, color: Colors.white),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       },
     ),
@@ -206,8 +206,8 @@ Future<void> _fetchUserData() async {
                   )
                 : CircleAvatar(
                     radius: 60,
-                    child: Icon(Icons.add_a_photo, color: Colors.white),
                     backgroundColor: Colors.grey[700],
+                    child: const Icon(Icons.add_a_photo, color: Colors.white),
                   ),
             ),
           ),
@@ -215,7 +215,7 @@ Future<void> _fetchUserData() async {
           Text(
             currentUser.email!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 50),
           Text(
@@ -252,15 +252,15 @@ Future<void> _fetchUserData() async {
         contentPadding: EdgeInsets.zero,
         leading: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: IconButton(
-          icon: Icon(Icons.edit, color: Colors.white),
+          icon: const Icon(Icons.edit, color: Colors.white),
           onPressed: () => editField(title.replaceFirst(':', '').trim().toLowerCase(), controller),
         ),
         title: Text(
           controller.text.isEmpty ? 'No Data' : controller.text,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -273,7 +273,7 @@ Future<void> _fetchUserData() async {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.black,
-          title: Text('Profile Picture', style: TextStyle(color: Colors.white)),
+          title: const Text('Profile Picture', style: TextStyle(color: Colors.white)),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -281,7 +281,7 @@ Future<void> _fetchUserData() async {
                 radius: 100,
                 backgroundImage: NetworkImage(_imageUrl!),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -290,15 +290,15 @@ Future<void> _fetchUserData() async {
                       Navigator.of(context).pop();
                       _pickImage();
                     },
-                    child: Text('Change Picture', style: TextStyle(color: Colors.white)),
+                    child: const Text('Change Picture', style: TextStyle(color: Colors.white)),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                       _viewImage();
                     },
-                    child: Text('View Full Image', style: TextStyle(color: Colors.white)),
+                    child: const Text('View Full Image', style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -324,7 +324,7 @@ Future<void> _fetchUserData() async {
                   _imageUrl!,
                   fit: BoxFit.cover,
                 )
-              : Center(
+              : const Center(
                   child: Text('No Image Available', style: TextStyle(color: Colors.white)),
                 ),
           ),

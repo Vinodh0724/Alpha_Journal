@@ -106,17 +106,17 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                   controller: _titleController,
                   decoration: InputDecoration(
                     labelText: 'Title',
-                    labelStyle: TextStyle(color: Colors.white),
-                    enabledBorder: OutlineInputBorder(
+                    labelStyle: const TextStyle(color: Colors.white),
+                    enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
                     ),
                     fillColor: Colors.grey[800],
                     filled: true,
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a title';
@@ -129,17 +129,17 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                   controller: _descriptionController,
                   decoration: InputDecoration(
                     labelText: 'Description',
-                    labelStyle: TextStyle(color: Colors.white),
-                    enabledBorder: OutlineInputBorder(
+                    labelStyle: const TextStyle(color: Colors.white),
+                    enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
                     ),
                     fillColor: Colors.grey[800],
                     filled: true,
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -150,9 +150,9 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                   
                 ),
                 const SizedBox(height: 16),
-                Text(
+                const Text(
                   'Images',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -169,7 +169,7 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                         Positioned(
                           right: 0,
                           child: IconButton(
-                            icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                            icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                             onPressed: () {
                               setState(() {
                                 _imageUrls.remove(imageUrl);
@@ -187,7 +187,7 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                           Positioned(
                             right: 0,
                             child: IconButton(
-                              icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                              icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                               onPressed: () {
                                 setState(() {
                                   _newImages.remove(image);
@@ -205,11 +205,11 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                           width: 100,
                           height: 100,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 34, 33, 33),
+                            color: const Color.fromARGB(255, 34, 33, 33),
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color.fromARGB(255, 43, 255, 0), width: 2),
+                            border: Border.all(color: const Color.fromARGB(255, 43, 255, 0), width: 2),
                           ),
-                          child: Icon(Icons.add_a_photo, color: Colors.white),
+                          child: const Icon(Icons.add_a_photo, color: Colors.white),
                         ),
                       ),
                     ),
@@ -240,8 +240,8 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
-                    Text(
+                    const SizedBox(width: 8),
+                    const Text(
                       'Star This Entry as Important',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
@@ -252,8 +252,8 @@ class _UpdateEntryScreenState extends State<UpdateEntryScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton.icon(
-                    icon: Icon(Icons.save),
-                    label: Text('Save Changes'),
+                    icon: const Icon(Icons.save),
+                    label: const Text('Save Changes'),
                     onPressed: _updateEntry,
                     style: ElevatedButton.styleFrom(
                       shadowColor: Colors.red,

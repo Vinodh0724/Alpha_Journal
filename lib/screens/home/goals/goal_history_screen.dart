@@ -5,7 +5,7 @@ import 'view_goals_screen.dart'; // Import ViewGoalsScreen
 
 
 class GoalsHistoryScreen extends StatefulWidget {
-  const GoalsHistoryScreen({Key? key}) : super(key: key);
+  const GoalsHistoryScreen({super.key});
 
   @override
   _GoalsHistoryScreenState createState() => _GoalsHistoryScreenState();
@@ -38,7 +38,7 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Goals History'),
+        title: const Text('Goals History'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore
@@ -48,11 +48,11 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Text(
                 'No completed goals yet.',
                 style: TextStyle(color: Colors.white),
@@ -74,7 +74,7 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
                 child: ListTile(
                   title: Text(
                     goal['title'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -83,10 +83,10 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
                   ),
                   subtitle: Text(
                     'Start Date: ${startDate.toLocal().toString().split(' ')[0]} \nEnd Date: ${endDate.toLocal().toString().split(' ')[0]}',
-                    style: TextStyle(color: Colors.white70),
+                    style: const TextStyle(color: Colors.white70),
                   ),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete, color: Colors.white),
+                    icon: const Icon(Icons.delete, color: Colors.white),
                     onPressed: () => _deleteGoal(goal.id),
                   ),
                                       onTap: () => _navigateToViewGoalScreen(goal.id),

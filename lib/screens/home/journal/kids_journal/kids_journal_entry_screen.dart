@@ -11,7 +11,7 @@ import 'read_entry_screen.dart';
 
 
 class KidsJournalScreen extends StatefulWidget {
-  const KidsJournalScreen({Key? key}) : super(key: key);
+  const KidsJournalScreen({super.key});
 
   @override
   _KidsJournalScreenState createState() => _KidsJournalScreenState();
@@ -122,7 +122,7 @@ class _KidsJournalScreenState extends State<KidsJournalScreen> {
                       });
                     },
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),

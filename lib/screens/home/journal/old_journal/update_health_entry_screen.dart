@@ -17,7 +17,7 @@ class UpdateHealthEntryScreen extends StatefulWidget {
   final bool isImportant;
 
   const UpdateHealthEntryScreen({
-    Key? key,
+    super.key,
     required this.documentId,
     required this.initialTitle,
     required this.initialHealthProblem,
@@ -27,7 +27,7 @@ class UpdateHealthEntryScreen extends StatefulWidget {
     this.initialDate,
     required this.initialImages,
     required this.isImportant,
-  }) : super(key: key);
+  });
 
   @override
   _UpdateHealthEntryScreenState createState() => _UpdateHealthEntryScreenState();
@@ -41,7 +41,7 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
   final TextEditingController _healthGoalsController = TextEditingController();
   DateTime? _selectedDate;
   List<String> _imageUrls = [];
-  List<XFile> _newImages = [];
+  final List<XFile> _newImages = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -176,7 +176,7 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                   ..._newImages.map((image) {
                     return Stack(
                       children: [
@@ -210,7 +210,7 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 20),
@@ -220,14 +220,14 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
               ),
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your health journal entry title',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -240,14 +240,14 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
               ),
               TextField(
                 controller: _healthProblemController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter the health problem you faced',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -260,14 +260,14 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
               ),
               TextField(
                 controller: _medicineNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter the name of the medicine you took',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -280,14 +280,14 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
               ),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your health journal entry description',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -301,14 +301,14 @@ class _UpdateHealthEntryScreenState extends State<UpdateHealthEntryScreen> {
               ),
               TextField(
                 controller: _healthGoalsController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your health goals',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),

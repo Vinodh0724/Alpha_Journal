@@ -17,7 +17,7 @@ class UpdateOutingEntryScreen extends StatefulWidget {
   final bool isImportant;
 
   const UpdateOutingEntryScreen({
-    Key? key,
+    super.key,
     required this.documentId,
     required this.initialTitle,
     required this.initialPlace,
@@ -27,7 +27,7 @@ class UpdateOutingEntryScreen extends StatefulWidget {
     this.initialDate,
     required this.initialImages,
     required this.isImportant,
-  }) : super(key: key);
+  });
 
   @override
   _UpdateOutingEntryScreenState createState() => _UpdateOutingEntryScreenState();
@@ -41,7 +41,7 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
   final TextEditingController _reflectionController = TextEditingController();
   DateTime? _selectedDate;
   List<String> _imageUrls = [];
-  List<XFile> _newImages = [];
+  final List<XFile> _newImages = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -176,7 +176,7 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                   ..._newImages.map((image) {
                     return Stack(
                       children: [
@@ -210,7 +210,7 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 20),
@@ -220,10 +220,10 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
               ),
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your outing title',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
@@ -240,10 +240,10 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
               ),
               TextField(
                 controller: _placeController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter the outing place',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
@@ -260,10 +260,10 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
               ),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your outing description',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
@@ -281,10 +281,10 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
               ),
               TextField(
                 controller: _memoriesController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your memorable moments',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
@@ -302,10 +302,10 @@ class _UpdateOutingEntryScreenState extends State<UpdateOutingEntryScreen> {
               ),
               TextField(
                 controller: _reflectionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Reflect on your outing',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),

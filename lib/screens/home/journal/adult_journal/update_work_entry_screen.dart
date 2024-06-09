@@ -41,7 +41,7 @@ class _UpdateWorkEntryScreenState extends State<UpdateWorkEntryScreen> {
   final TextEditingController _achievementsController = TextEditingController();
   DateTime? _selectedDate;
   late List<String> _imageUrls;
-  List<XFile> _newImages = [];
+  final List<XFile> _newImages = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -158,7 +158,7 @@ class _UpdateWorkEntryScreenState extends State<UpdateWorkEntryScreen> {
                           ),
                         ],
                       );
-                    }).toList(),
+                    }),
                     ..._newImages.map((image) {
                       return Stack(
                         children: [
@@ -176,7 +176,7 @@ class _UpdateWorkEntryScreenState extends State<UpdateWorkEntryScreen> {
                           ),
                         ],
                       );
-                    }).toList(),
+                    }),
                   ],
                 ),
                 const SizedBox(height: 20),

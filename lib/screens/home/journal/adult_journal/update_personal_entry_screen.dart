@@ -43,7 +43,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
   final TextEditingController _reflectionController = TextEditingController();
   DateTime? _selectedDate;
   late List<String> _imageUrls;
-  List<XFile> _newImages = []; 
+  final List<XFile> _newImages = []; 
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -160,7 +160,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
                           ),
                         ],
                       );
-                    }).toList(),
+                    }),
                     ..._newImages.map((image) {
                       return Stack(
                         children: [
@@ -178,7 +178,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
                           ),
                         ],
                       );
-                    }).toList(),
+                    }),
                   ],
                 ),
                 const SizedBox(height: 20),

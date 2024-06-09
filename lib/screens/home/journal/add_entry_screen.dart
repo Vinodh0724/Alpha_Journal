@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddEntryScreen extends StatefulWidget {
-  const AddEntryScreen({Key? key}) : super(key: key);
+  const AddEntryScreen({super.key});
 
   @override
   _AddEntryScreenState createState() => _AddEntryScreenState();
@@ -15,7 +15,7 @@ class AddEntryScreen extends StatefulWidget {
 class _AddEntryScreenState extends State<AddEntryScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  List<File> _images = [];
+  final List<File> _images = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -64,30 +64,30 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Add Journal Entry',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 156, 54, 54),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveEntry,
           ),
         ],
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Add Images',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -98,11 +98,11 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 33, 33),
+                        color: const Color.fromARGB(255, 34, 33, 33),
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Color.fromARGB(255, 43, 255, 0), width: 2),
+                        border: Border.all(color: const Color.fromARGB(255, 43, 255, 0), width: 2),
                       ),
-                      child: Icon(Icons.add_a_photo, color: Colors.white),
+                      child: const Icon(Icons.add_a_photo, color: Colors.white),
                     ),
                   ),
                   ..._images.map((image) {
@@ -113,7 +113,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                           height: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color.fromARGB(255, 255, 0, 0), width: 2),
+                            border: Border.all(color: const Color.fromARGB(255, 255, 0, 0), width: 2),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
@@ -128,7 +128,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                         Positioned(
                           right: 0,
                           child: IconButton(
-                            icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                            icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                             onPressed: () {
                               setState(() {
                                 _images.remove(image);
@@ -138,11 +138,11 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Title',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -150,24 +150,24 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                 controller: _titleController,
                 decoration: InputDecoration(
                   hintText: 'Enter title',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Description',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -175,24 +175,24 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   hintText: 'Enter description',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Container(
@@ -213,20 +213,20 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                   ),
-                  SizedBox(width: 10),
-                  Text(
+                  const SizedBox(width: 10),
+                  const Text(
                     'Mark as Important',
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton.icon(
-                  icon: Icon(Icons.save),
-                  label: Text('Save Entry'),
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save Entry'),
                   onPressed: _saveEntry,
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.red,

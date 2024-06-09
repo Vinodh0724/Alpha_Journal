@@ -17,7 +17,7 @@ class UpdatePersonalEntryScreen extends StatefulWidget {
   final bool isImportant;
 
   const UpdatePersonalEntryScreen({
-    Key? key,
+    super.key,
     required this.documentId,
     required this.initialTitle,
     required this.initialDescription,
@@ -27,7 +27,7 @@ class UpdatePersonalEntryScreen extends StatefulWidget {
     this.initialDate,
     required this.initialImages,
     required this.isImportant,
-  }) : super(key: key);
+  });
 
   @override
   _UpdatePersonalEntryScreenState createState() => _UpdatePersonalEntryScreenState();
@@ -41,7 +41,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
   final TextEditingController _reflectionController = TextEditingController();
   DateTime? _selectedDate;
   List<String> _imageUrls = [];
-  List<XFile> _newImages = [];
+  final List<XFile> _newImages = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -176,7 +176,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                   ..._newImages.map((image) {
                     return Stack(
                       children: [
@@ -210,7 +210,7 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 20),
@@ -220,14 +220,14 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
               ),
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your journal entry title',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -279,14 +279,14 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
               ),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your journal entry description',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -300,14 +300,14 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
               ),
               TextField(
                 controller: _memoriesController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your memorable moments',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -321,14 +321,14 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
               ),
               TextField(
                 controller: _moodController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your mood',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -341,14 +341,14 @@ class _UpdatePersonalEntryScreenState extends State<UpdatePersonalEntryScreen> {
               ),
               TextField(
                 controller: _reflectionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Reflect on your day',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),

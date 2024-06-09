@@ -73,9 +73,9 @@ class ReadEntryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   if (templateType == 'school') ...[
-                    Text(
+                    const Text(
                       'Reflection',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -90,9 +90,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Achievements',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -108,9 +108,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   if (templateType == 'sports') ...[
-                    Text(
+                    const Text(
                       'Event',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -125,9 +125,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Achievement',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -143,9 +143,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   if (templateType == 'tuition') ...[
-                    Text(
+                    const Text(
                       'Experience',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -160,9 +160,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Fees',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -177,9 +177,9 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
+                    const Text(
                       'Subject',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -195,9 +195,9 @@ class ReadEntryScreen extends StatelessWidget {
                     ),
                   ],
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Images',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -219,9 +219,9 @@ class ReadEntryScreen extends StatelessWidget {
                         color: isImportant ? Colors.yellow : Colors.white,
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         'Important Entry',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                         ),
@@ -292,7 +292,7 @@ class ReadEntryScreen extends StatelessWidget {
                         );
                       }
                     },
-                    child: Text('Update Entry'),
+                    child: const Text('Update Entry'),
                   ),
                 ],
               ),

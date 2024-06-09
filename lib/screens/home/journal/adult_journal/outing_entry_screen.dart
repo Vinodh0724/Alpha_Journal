@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class OutingEntryScreen extends StatefulWidget {
   final Map<String, String>? templateData;
 
-  const OutingEntryScreen({Key? key, this.templateData}) : super(key: key);
+  const OutingEntryScreen({super.key, this.templateData});
 
   @override
   _OutingEntryScreenState createState() => _OutingEntryScreenState();
@@ -22,7 +22,7 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
   final TextEditingController _memoriesController = TextEditingController();
   final TextEditingController _reflectionController = TextEditingController();
   DateTime? _selectedDate;
-  List<XFile> _images = []; 
+  final List<XFile> _images = []; 
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -86,30 +86,30 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Add Outing Entry',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 156, 54, 54),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveEntry,
           ),
         ],
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Add Images',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -120,11 +120,11 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 33, 33),
+                        color: const Color.fromARGB(255, 34, 33, 33),
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Color.fromARGB(255, 43, 255, 0), width: 2),
+                        border: Border.all(color: const Color.fromARGB(255, 43, 255, 0), width: 2),
                       ),
-                      child: Icon(Icons.add_a_photo, color: Colors.white),
+                      child: const Icon(Icons.add_a_photo, color: Colors.white),
                     ),
                   ),
                   ..._images.map((image) {
@@ -135,7 +135,7 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                           height: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color.fromARGB(255, 255, 0, 0), width: 2),
+                            border: Border.all(color: const Color.fromARGB(255, 255, 0, 0), width: 2),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
@@ -150,7 +150,7 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                         Positioned(
                           right: 0,
                           child: IconButton(
-                            icon: Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
+                            icon: const Icon(Icons.cancel, color: Color.fromARGB(255, 255, 0, 0)),
                             onPressed: () {
                               setState(() {
                                 _images.remove(image);
@@ -160,11 +160,11 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Title',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -172,24 +172,24 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                 controller: _titleController,
                 decoration: InputDecoration(
                   hintText: 'Enter your outing title',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 0)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Date',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -212,23 +212,23 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.white),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   child: Row(
                     children: [
-                      Icon(Icons.calendar_today, color: Colors.white),
-                      SizedBox(width: 10),
+                      const Icon(Icons.calendar_today, color: Colors.white),
+                      const SizedBox(width: 10),
                       Text(
                         _selectedDate != null
                             ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
                             : 'Select Date',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Place',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -236,24 +236,24 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                 controller: _placeController,
                 decoration: InputDecoration(
                   hintText: 'Enter the outing place',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Description',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -261,25 +261,25 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   hintText: 'Enter your outing description',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Memories',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -287,25 +287,25 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                 controller: _memoriesController,
                 decoration: InputDecoration(
                   hintText: 'Enter your memorable moments',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Reflection',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -313,24 +313,24 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                 controller: _reflectionController,
                 decoration: InputDecoration(
                   hintText: 'Reflect on your outing',
-                  hintStyle: TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: Colors.white54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 255, 8)),
                   ),
                 ),
                 maxLines: 5,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Container(
@@ -356,20 +356,20 @@ class _OutingEntryScreenState extends State<OutingEntryScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10), // Add spacing between Checkbox and Text
-                  Text(
+                  const SizedBox(width: 10), // Add spacing between Checkbox and Text
+                  const Text(
                     'Star This Entry as Important',
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton.icon(
-                  icon: Icon(Icons.save),
-                  label: Text('Save Entry'),
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save Entry'),
                   onPressed: _saveEntry,
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.red,

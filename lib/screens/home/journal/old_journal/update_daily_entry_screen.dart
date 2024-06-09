@@ -14,7 +14,7 @@ class UpdateDailyEntryScreen extends StatefulWidget {
   final bool isImportant;
 
   const UpdateDailyEntryScreen({
-    Key? key,
+    super.key,
     required this.documentId,
     required this.initialTitle,
     required this.initialDescription,
@@ -22,7 +22,7 @@ class UpdateDailyEntryScreen extends StatefulWidget {
     required this.initialReflection,
     required this.initialImages,
     required this.isImportant, DateTime? initialDate,
-  }) : super(key: key);
+  });
 
   @override
   _UpdateDailyEntryScreenState createState() => _UpdateDailyEntryScreenState();
@@ -34,7 +34,7 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
   final TextEditingController _reflectionController = TextEditingController();
   final TextEditingController _moodController = TextEditingController();
   List<String> _imageUrls = [];
-  List<XFile> _newImages = [];
+  final List<XFile> _newImages = [];
   bool _isImportant = false;
   final ImagePicker _picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -165,7 +165,7 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                   ..._newImages.map((image) {
                     return Stack(
                       children: [
@@ -199,7 +199,7 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
                         ),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 20),
@@ -209,14 +209,14 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
               ),
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your daily journal entry title',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -229,14 +229,14 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
               ),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your daily journal entry description',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -250,14 +250,14 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
               ),
               TextField(
                 controller: _moodController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your mood for today',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
@@ -271,14 +271,14 @@ class _UpdateDailyEntryScreenState extends State<UpdateDailyEntryScreen> {
               ),
               TextField(
                 controller: _reflectionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your daily journal entry reflection',
                   hintStyle: TextStyle(color: Colors.white54),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: const OutlineInputBorder(
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
