@@ -3,6 +3,8 @@ import 'package:apha_journal/screens/home/goals/goal_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:apha_journal/screens/home/goals/view_goals_screen.dart';
+
 
 
 class GoalsScreen extends StatefulWidget {
@@ -43,6 +45,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
       );
     }
   }
+
+  void _navigateToViewGoalScreen(String goalId) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => ViewGoalsScreen(goalId: goalId),
+    ),
+  );
+}
 
   Future<void> _toggleGoalCompletion(String goalId, bool isCompleted) async {
     try {
@@ -137,6 +148,7 @@ Widget build(BuildContext context) {
                             ),
                           ],
                         ),
+                         onTap: () => _navigateToViewGoalScreen(goal.id), // Use the document ID here
                       ),
                     );
                   },
