@@ -1,5 +1,5 @@
 import 'package:apha_journal/screens/home/drawer.dart';
-import 'package:apha_journal/screens/home/goals_screen.dart';
+import 'package:apha_journal/screens/home/goals/goals_screen.dart';
 import 'package:apha_journal/screens/home/journal/age_based_journal_template.dart';
 import 'package:apha_journal/screens/home/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
