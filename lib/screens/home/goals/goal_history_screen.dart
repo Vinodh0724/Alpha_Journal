@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'view_goals_screen.dart'; // Import ViewGoalsScreen
+
 
 class GoalsHistoryScreen extends StatefulWidget {
   const GoalsHistoryScreen({Key? key}) : super(key: key);
@@ -21,6 +23,15 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
         SnackBar(content: Text('Failed to delete goal: $e')),
       );
     }
+  }
+
+    void _navigateToViewGoalScreen(String goalId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewGoalsScreen(goalId: goalId),
+      ),
+    );
   }
 
   @override
@@ -78,6 +89,7 @@ class _GoalsHistoryScreenState extends State<GoalsHistoryScreen> {
                     icon: Icon(Icons.delete, color: Colors.white),
                     onPressed: () => _deleteGoal(goal.id),
                   ),
+                                      onTap: () => _navigateToViewGoalScreen(goal.id),
                 ),
               );
             },
