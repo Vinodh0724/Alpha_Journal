@@ -1,10 +1,10 @@
 import 'package:apha_journal/screens/home/goals/add_goals_screen.dart';
 import 'package:apha_journal/screens/home/goals/goal_history_screen.dart';
-import 'package:apha_journal/screens/home/goals/view_goals_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'edit_goal_screen.dart'; // Import EditGoalScreen
+import 'package:apha_journal/screens/home/goals/view_goals_screen.dart';
+import 'package:apha_journal/screens/home/goals/edit_goal_screen.dart'; // Import the EditGoalScreen
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({Key? key}) : super(key: key);
@@ -98,7 +98,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 style: TextStyle(color: Color.fromARGB(255, 253, 168, 0)),
               ),
             ),
-            SizedBox(height: 16.0),
+            SizedBox(
+                height:
+                    16.0), // Add space between the completed goal button and the list
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
@@ -119,7 +121,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     );
                   }
 
-                  var goals = snapshot.data!.docs;
+                  var goals = snapshot.data!.docs
+                      .where((doc) => !doc['isCompleted'])
+                      .toList();
 
                   return ListView.builder(
                     itemCount: goals.length,
@@ -162,10 +166,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                     _toggleGoalCompletion(goal.id, isCompleted),
                               ),
                               IconButton(
-                                icon: Icon(Icons.edit,
-                                    color: Colors.white), // Add edit button
+                                icon: Icon(Icons.edit, color: Colors.white),
                                 onPressed: () => _navigateToEditGoalScreen(
-                                    goal.id), // Navigate to EditGoalScreen
+                                    goal.id), // Navigate to edit screen
                               ),
                               IconButton(
                                 icon: Icon(Icons.delete, color: Colors.white),
@@ -173,7 +176,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               ),
                             ],
                           ),
-                          onTap: () => _navigateToViewGoalScreen(goal.id),
+                          onTap: () => _navigateToViewGoalScreen(
+                              goal.id), // Use the document ID here
                         ),
                       );
                     },
