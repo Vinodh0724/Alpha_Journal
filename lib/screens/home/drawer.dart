@@ -1,5 +1,6 @@
 import 'package:apha_journal/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:apha_journal/screens/home/my_list_tile.dart';
+import 'package:apha_journal/screens/home/support_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,14 @@ class MyDrawer extends StatelessWidget {
             text: 'P R O F I L E',
             onTap: onProfileTap,
           ), 
+          MyListTile(
+            icon: Icons.support, 
+            text: 'S U P P O R T',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SupportPage()),
+            ),
+          ),
           ],),
           Padding(
             padding: const EdgeInsets.only(bottom: 25.0),
@@ -48,5 +57,4 @@ class MyDrawer extends StatelessWidget {
       ),
     );
   }
-  
 }
