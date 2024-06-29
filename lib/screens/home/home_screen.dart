@@ -2,6 +2,8 @@ import 'package:apha_journal/screens/home/drawer.dart';
 import 'package:apha_journal/screens/home/goals/goals_screen.dart';
 import 'package:apha_journal/screens/home/journal/age_based_journal_template.dart';
 import 'package:apha_journal/screens/home/profile_page.dart';
+import 'package:apha_journal/shop/my_stickers_screen.dart';
+import 'package:apha_journal/shop/shop_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           body: Center(
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildBox("Journal", () {
@@ -94,6 +96,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => GoalsScreen(),
+                    ),
+                  );
+                }),
+                _buildBox("Shop", () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ShopScreen(),
+                    ),
+                  );
+                }),
+                _buildBox("My Stickers", () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyStickersScreen(),
                     ),
                   );
                 }),

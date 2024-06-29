@@ -35,6 +35,7 @@ class ReadEntryScreen extends StatelessWidget {
           var data = entry.data() as Map<String, dynamic>;
           var title = data['title'] ?? 'No Title';
           var description = data['description'] ?? 'No Description';
+          var stickers = data['stickers'] ?? []; // Added to fetch stickers
           var images = data['images'] ?? [];
           bool isImportant = data['isImportant'] ?? false;
 
@@ -194,6 +195,25 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                                    if (stickers.isNotEmpty) ...[
+  const SizedBox(height: 16),
+  Text(
+    'Stickers',
+    style: const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+  ),
+  const SizedBox(height: 8),
+  Wrap(
+    spacing: 8,
+    runSpacing: 8,
+    children: stickers.map<Widget>((stickerUrl) {
+      return Image.network(stickerUrl, width: 50, height: 50, fit: BoxFit.cover);
+    }).toList(),
+  ),
+],
                   const SizedBox(height: 16),
                   Text(
                     'Images',
