@@ -1,4 +1,4 @@
-import 'package:apha_journal/screens/home/goals_screen.dart';
+import 'package:apha_journal/screens/home/goals/goals_screen.dart';
 import 'package:apha_journal/screens/home/journal/adult_journal/adult_journal_entry_screen.dart';
 import 'package:apha_journal/screens/home/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 1; // Index for Journal screen
 
   static final  List<Widget> _widgetOptions = <Widget>[
-    const HomeContent(), // Home screen
+    const HomeScreen(), // Home screen
     const AdultJournalScreen(), // Journal screen (Your existing screen)
     const GoalsScreen(), // Goals screen
     const ProfilePage(), // Profile screen
