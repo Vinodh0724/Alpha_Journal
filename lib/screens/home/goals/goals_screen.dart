@@ -140,14 +140,14 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ElevatedButton(
               onPressed: _navigateToGoalsHistoryScreen,
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 107, 83, 74)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
               ),
               child: Text(
                 'View Completed Goals',
-                style: TextStyle(color: Color.fromARGB(255, 253, 168, 0)),
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            SizedBox(height: 16.0), // Add space between the completed goal button and the list
+            SizedBox(height: 16.0),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore.collection('goals').where('userId', isEqualTo: user?.uid).snapshots(),
@@ -160,7 +160,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     return Center(
                       child: Text(
                         'No goals yet.',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     );
                   }
@@ -172,26 +172,26 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     itemBuilder: (context, index) {
                       var goal = goals[index];
                       var isCompleted = goal['isCompleted'] as bool;
-                      if (isCompleted) return SizedBox.shrink(); // Hide completed goals from this list
+                      if (isCompleted) return SizedBox.shrink();
 
                       DateTime startDate = DateTime.parse(goal['startDate']);
                       DateTime endDate = DateTime.parse(goal['endDate']);
 
                       return Card(
-                        color: Colors.grey[850],
+                        color: Colors.teal[200],
                         child: ListTile(
                           title: Text(
                             goal['title'],
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Colors.black,
                               decoration: isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
                             ),
                           ),
                           subtitle: Text(
                             'Start Date: ${startDate.toLocal().toString().split(' ')[0]} \nEnd Date: ${endDate.toLocal().toString().split(' ')[0]}',
-                            style: TextStyle(color: Colors.white70),
+                            style: TextStyle(color: Colors.black),
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -199,17 +199,17 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               IconButton(
                                 icon: Icon(
                                   isCompleted ? Icons.check_box : Icons.check_box_outline_blank,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                                 onPressed: () => _toggleGoalCompletion(goal.id, isCompleted),
                               ),
                               IconButton(
-                                icon: Icon(Icons.delete, color: Colors.white),
+                                icon: Icon(Icons.delete, color: Colors.black),
                                 onPressed: () => _deleteGoal(goal.id),
                               ),
                             ],
                           ),
-                          onTap: () => _navigateToViewGoalScreen(goal.id), // Use the document ID here
+                          onTap: () => _navigateToViewGoalScreen(goal.id),
                         ),
                       );
                     },
@@ -223,6 +223,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddGoalScreen,
         child: Icon(Icons.add),
+        backgroundColor: Colors.teal,
       ),
     );
   }
