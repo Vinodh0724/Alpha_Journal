@@ -20,18 +20,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _showNotification = false; // Flag to control the red dot notification
+  bool _showNotification = false;
 
   @override
   void initState() {
     super.initState();
-    // Call a function to check if user's age is empty
     _checkUserAge();
   }
 
   void goToProfilePage(BuildContext context) {
     Navigator.pop(context);
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -40,19 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Function to check if user's age is empty
   void _checkUserAge() async {
-    // Get current user
     User? currentUser = FirebaseAuth.instance.currentUser;
-
     if (currentUser != null) {
-      // Retrieve user document from Firestore using the user's ID
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(currentUser.uid)
           .get();
-
-      // Check if age field is empty
       if (userDoc.exists &&
           (userDoc.data() as Map<String, dynamic>)['age'] == null) {
         setState(() {
@@ -69,21 +61,24 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Home'),
+            title: const Text('Home'),
             actions: [
               IconButton(
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout),
                 onPressed: () {
                   context.read<SignInBloc>().add(const SignOutRequired());
                 },
               ),
             ],
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16.0,
+              mainAxisSpacing: 16.0,
               children: [
-                _buildBox("Journal", () {
+                _buildBox('Journal', Icons.book, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -91,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }),
-                _buildBox("Goals", () {
+                _buildBox('Goals', Icons.flag, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -99,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }),
-                _buildBox("Shop", () {
+                _buildBox('Shop', Icons.shopping_cart, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -107,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }),
-                _buildBox("My Stickers", () {
+                _buildBox('My Stickers', Icons.sticky_note_2, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -127,17 +122,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBox(String label, VoidCallback onTap) {
+  Widget _buildBox(String label, IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 100,
-        height: 100,
-        color: Color.fromARGB(255, 92, 68, 10),
+        decoration: BoxDecoration(
+          color: Colors.teal,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Center(
-          child: Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 40, color: Colors.white),
+              const SizedBox(height: 10),
+              Text(
+                label,
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ],
           ),
         ),
       ),
@@ -150,28 +153,47 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Stack(
         children: [
           Container(
-            width: 100,
-            height: 100,
-            color: Color.fromARGB(255, 92, 68, 10),
+            decoration: BoxDecoration(
+              color: Colors.teal,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Center(
-              child: Text(
-                'Profile',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.person, size: 40, color: Colors.white),
+                  SizedBox(height: 10),
+                  Text(
+                    'Profile',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ],
               ),
             ),
           ),
           if (_showNotification)
             Positioned(
-              right: 0,
+              right: 10,
+              top: 10,
               child: Container(
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                constraints: BoxConstraints(
-                  minWidth: 15,
-                  minHeight: 15,
+                constraints: const BoxConstraints(
+                  minWidth: 20,
+                  minHeight: 20,
+                ),
+                child: const Center(
+                  child: Text(
+                    '!',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),

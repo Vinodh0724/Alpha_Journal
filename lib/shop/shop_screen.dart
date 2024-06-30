@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../shop/sticker_model.dart';
-import 'select_journal_entry_screen.dart'; // Import the SelectJournalEntry screen
+import 'select_journal_entry_screen.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
@@ -28,68 +28,79 @@ class _ShopScreenState extends State<ShopScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SelectJournalEntryScreen(sticker: sticker, stickerId: '',),
+        builder: (context) => SelectJournalEntryScreen(sticker: sticker, stickerId: ''),
       ),
     );
   }
 
   Future<void> _buySticker(BuildContext context, Sticker sticker) async {
-    // Get current user
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) {
+    try {
+      // Get current user
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User not logged in')),
+        );
+        return;
+      }
+
+      // Fetch user document
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
+
+      if (!userDoc.exists || userDoc.data() == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User not found')),
+        );
+        return;
+      }
+
+      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+      int currentPoints = userData['points'];
+      List<dynamic> purchasedStickers = userData.containsKey('purchasedStickers') ? userData['purchasedStickers'] : [];
+
+      if (purchasedStickers.contains(sticker.id)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('You have already purchased this sticker')),
+        );
+        return;
+      }
+
+      if (currentPoints < sticker.price) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Not enough points')),
+        );
+        return;
+      }
+
+      // Deduct points and update Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .update({
+        'points': currentPoints - sticker.price,
+        'purchasedStickers': FieldValue.arrayUnion([sticker.id]),
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not logged in')),
+        SnackBar(content: Text('Sticker purchased!')),
       );
-      return;
-    }
 
-    // Fetch user document
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser.uid)
-        .get();
+      // Navigate to select journal entry screen
+      _selectJournalEntryForSticker(context, sticker);
 
-    if (!userDoc.exists) {
+      // Refresh the state
+      setState(() {
+        stickers = fetchStickers();
+      });
+
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not found')),
+        SnackBar(content: Text('Error: $e')),
       );
-      return;
     }
-
-    int currentPoints = userDoc['points'];
-    List<dynamic> purchasedStickers = userDoc['purchasedStickers'] is List<dynamic>
-        ? userDoc['purchasedStickers']
-        : [];
-
-    if (purchasedStickers.contains(sticker.id)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('You have already purchased this sticker')),
-      );
-      return;
-    }
-
-    if (currentPoints < sticker.price) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Not enough points')),
-      );
-      return;
-    }
-
-    // Deduct points and update Firestore
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser.uid)
-        .update({
-      'points': currentPoints - sticker.price,
-      'purchasedStickers': FieldValue.arrayUnion([sticker.id]),
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Sticker purchased!')),
-    );
-
-    // Navigate to select journal entry screen
-    _selectJournalEntryForSticker(context, sticker);
   }
 
   @override
@@ -141,69 +152,14 @@ class _ShopScreenState extends State<ShopScreen> {
 
 class StickerCard extends StatelessWidget {
   final Sticker sticker;
+  final Future<void> Function(BuildContext context, Sticker sticker) onBuyPressed;
 
-  StickerCard({required this.sticker, required Future<void> Function(BuildContext context, Sticker sticker) onBuyPressed});
-
-  Future<void> _buySticker(BuildContext context) async {
-    // Get current user
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not logged in')),
-      );
-      return;
-    }
-
-    // Fetch user document
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser.uid)
-        .get();
-
-    if (!userDoc.exists) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not found')),
-      );
-      return;
-    }
-
-    int currentPoints = userDoc['points'];
-    List<dynamic> purchasedStickers = userDoc['purchasedStickers'] is List<dynamic>
-        ? userDoc['purchasedStickers']
-        : [];
-
-    if (purchasedStickers.contains(sticker.id)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('You have already purchased this sticker')),
-      );
-      return;
-    }
-
-    if (currentPoints < sticker.price) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Not enough points')),
-      );
-      return;
-    }
-
-    // Deduct points and update Firestore
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser.uid)
-        .update({
-      'points': currentPoints - sticker.price,
-      'purchasedStickers': FieldValue.arrayUnion([sticker.id]),
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Sticker purchased!')),
-    );
-  }
+  StickerCard({required this.sticker, required this.onBuyPressed});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[850], // Dark background for the card
+      color: Colors.grey[850],
       child: Column(
         children: [
           Expanded(
@@ -242,7 +198,7 @@ class StickerCard extends StatelessWidget {
                 Text('${sticker.price} points', style: TextStyle(fontSize: 14, color: Colors.white70)),
                 SizedBox(height: 8), // Add some space before the button
                 ElevatedButton(
-                  onPressed: () => _buySticker(context), // Handle sticker purchase
+                  onPressed: () => onBuyPressed(context, sticker), // Use the passed method
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.orange), // Customize button color
                   child: Text('Buy'),
                 ),
