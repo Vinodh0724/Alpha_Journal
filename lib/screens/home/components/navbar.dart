@@ -3,6 +3,10 @@ import 'package:apha_journal/screens/home/journal/adult_journal/adult_journal_en
 import 'package:apha_journal/screens/home/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:apha_journal/screens/home/home_screen.dart';
+import 'package:apha_journal/shop/shop_screen.dart'; 
+import 'package:apha_journal/shop/my_stickers_screen.dart'; 
+
+
 
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({Key? key}) : super(key: key);
@@ -19,6 +23,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     const AdultJournalScreen(), // Journal screen (Your existing screen)
     const GoalsScreen(), // Goals screen
     const ProfilePage(), // Profile screen
+    ShopScreen(), // Shop screen (New screen)
+    MyStickersScreen(), // My Stickers screen (New screen)
+
+
+    
   ];
 
   void _onItemTapped(int index) {
@@ -52,6 +61,15 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+              BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Shop', 
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sticky_note_2),
+            label: 'My Stickers', 
+          ),
+    
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,

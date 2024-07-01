@@ -45,6 +45,7 @@ class ReadEntryScreen extends StatelessWidget {
           var healthGoals = data['health_goals'] ?? 'No Health Goals';
           var memories = data['memories'] ?? 'No Memories';
           var date = (data['date'] as Timestamp?)?.toDate();
+          var stickers = data['stickers'] ?? []; // Added to fetch stickers
           var imageUrls = List<String>.from(data['images'] ?? []);
           bool isImportant = data['isImportant'] ?? false;
 
@@ -161,6 +162,25 @@ class ReadEntryScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                                    if (stickers.isNotEmpty) ...[
+  const SizedBox(height: 16),
+  Text(
+    'Stickers',
+    style: const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+  ),
+  const SizedBox(height: 8),
+  Wrap(
+    spacing: 8,
+    runSpacing: 8,
+    children: stickers.map<Widget>((stickerUrl) {
+      return Image.network(stickerUrl, width: 50, height: 50, fit: BoxFit.cover);
+    }).toList(),
+  ),
+],
                   if (templateType == 'personal') ...[
                     Text(
                       'Mood',
