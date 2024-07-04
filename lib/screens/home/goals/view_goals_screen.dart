@@ -13,7 +13,8 @@ class ViewGoalsScreen extends StatelessWidget {
         title: Text('View Goal'),
       ),
       body: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance.collection('goals').doc(goalId).get(),
+        future:
+            FirebaseFirestore.instance.collection('goals').doc(goalId).get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -28,7 +29,9 @@ class ViewGoalsScreen extends StatelessWidget {
           var startDate = DateTime.parse(goalData['startDate']);
           var endDate = DateTime.parse(goalData['endDate']);
           var isCompleted = goalData['isCompleted'];
-          var reminderTime = goalData['reminderTime'] != null ? _parseTime(goalData['reminderTime']) : null;
+          var reminderTime = goalData['reminderTime'] != null
+              ? _parseTime(goalData['reminderTime'])
+              : null;
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -45,7 +48,10 @@ class ViewGoalsScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Title: $title',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     SizedBox(height: 16),
                     Row(
@@ -61,7 +67,8 @@ class ViewGoalsScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(Icons.calendar_today_outlined, color: Colors.white70),
+                        Icon(Icons.calendar_today_outlined,
+                            color: Colors.white70),
                         SizedBox(width: 8),
                         Text(
                           'End Date: ${endDate.toLocal().toString().split(' ')[0]}',
@@ -72,7 +79,8 @@ class ViewGoalsScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(isCompleted ? Icons.check_circle : Icons.cancel, color: Colors.white70),
+                        Icon(isCompleted ? Icons.check_circle : Icons.cancel,
+                            color: Colors.white70),
                         SizedBox(width: 8),
                         Text(
                           'Completed: ${isCompleted ? 'Yes' : 'No'}',
@@ -88,7 +96,8 @@ class ViewGoalsScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Text(
                             'Reminder Time: ${reminderTime.format(context)}',
-                            style: TextStyle(fontSize: 18, color: Colors.white70),
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.white70),
                           ),
                         ],
                       ),
