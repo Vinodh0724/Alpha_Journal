@@ -230,37 +230,36 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   ),
                 ),
               ),
-              // SizedBox(height: 16),
-              // Text('Reminder Time',
-              //     style: TextStyle(
-              //         fontSize: 18,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.white)),
-              // TextField(
-              //   readOnly: true,
-              //   style: TextStyle(color: Colors.white),
-              //   onTap: () => _selectTime(context),
-              //   controller: TextEditingController(
-              //       text: _reminderTime != null
-              //           ? _reminderTime!.format(context)
-              //           : 'Select time'),
-              //   decoration: InputDecoration(
-              //     hintText: 'Select reminder time',
-              //     hintStyle: TextStyle(color: Colors.white70),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     enabledBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(color: Colors.white),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     focusedBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(color: Colors.white),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //   ),
-              // ),
-
+              SizedBox(height: 16),
+              Text('Reminder Time',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              TextField(
+                readOnly: true,
+                style: TextStyle(color: Colors.white),
+                onTap: () => _selectTime(context),
+                controller: TextEditingController(
+                    text: _reminderTime != null
+                        ? _reminderTime!.format(context)
+                        : 'Select time'),
+                decoration: InputDecoration(
+                  hintText: 'Select reminder time',
+                  hintStyle: TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
@@ -272,19 +271,6 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   );
                 },
                 child: Text("Reminder Notification (DAILY)"),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  DateTime scheduleDate =
-                      DateTime.now().add(Duration(hours: 1));
-                  NotificationService.ScheduleNotification(
-                    "Reminder",
-                    "You have Goals to Complete",
-                    scheduleDate,
-                  );
-                },
-                child: Text("Reminder Notification (Hourly)"),
               ),
               SizedBox(height: 16),
               ElevatedButton(
