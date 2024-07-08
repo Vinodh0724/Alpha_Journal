@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:apha_journal/local_notofications.dart';
+import 'package:apha_journal/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AddGoalScreen extends StatefulWidget {
   const AddGoalScreen({Key? key}) : super(key: key);
@@ -42,7 +45,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Future<void> _saveGoal() async {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null && _titleController.text.isNotEmpty) {
-      final DocumentReference docRef = await _firestore.collection('goals').add({
+      final DocumentReference docRef =
+          await _firestore.collection('goals').add({
         'title': _titleController.text,
         'isCompleted': false,
         'startDate': _startDate.toIso8601String(),
@@ -53,14 +57,16 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             : null,
       });
       Navigator.pop(context);
-      
+
       if (_reminderTime != null) {
-        await _scheduleNotification(docRef.id, _titleController.text, _reminderTime!);
+        await _scheduleNotification(
+            docRef.id, _titleController.text, _reminderTime!);
       }
     }
   }
 
-  Future<void> _scheduleNotification(String goalId, String goalTitle, TimeOfDay reminderTime) async {
+  Future<void> _scheduleNotification(
+      String goalId, String goalTitle, TimeOfDay reminderTime) async {
     final now = DateTime.now();
     final scheduledNotificationDateTime = tz.TZDateTime.local(
       now.year,
@@ -144,7 +150,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('Title',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               TextField(
                 controller: _titleController,
                 style: TextStyle(color: Colors.white),
@@ -165,12 +175,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 ),
               ),
               SizedBox(height: 16),
-              Text('Start Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('Start Date',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               TextField(
                 readOnly: true,
                 style: TextStyle(color: Colors.white),
                 onTap: () => _selectDate(context, true),
-                controller: TextEditingController(text: _startDate.toLocal().toString().split(' ')[0]),
+                controller: TextEditingController(
+                    text: _startDate.toLocal().toString().split(' ')[0]),
                 decoration: InputDecoration(
                   hintText: 'Select start date',
                   hintStyle: TextStyle(color: Colors.white70),
@@ -188,12 +203,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 ),
               ),
               SizedBox(height: 16),
-              Text('End Date', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('End Date',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               TextField(
                 readOnly: true,
                 style: TextStyle(color: Colors.white),
                 onTap: () => _selectDate(context, false),
-                controller: TextEditingController(text: _endDate.toLocal().toString().split(' ')[0]),
+                controller: TextEditingController(
+                    text: _endDate.toLocal().toString().split(' ')[0]),
                 decoration: InputDecoration(
                   hintText: 'Select end date',
                   hintStyle: TextStyle(color: Colors.white70),
@@ -211,12 +231,19 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 ),
               ),
               SizedBox(height: 16),
-              Text('Reminder Time', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('Reminder Time',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               TextField(
                 readOnly: true,
                 style: TextStyle(color: Colors.white),
                 onTap: () => _selectTime(context),
-                controller: TextEditingController(text: _reminderTime != null ? _reminderTime!.format(context) : 'Select time'),
+                controller: TextEditingController(
+                    text: _reminderTime != null
+                        ? _reminderTime!.format(context)
+                        : 'Select time'),
                 decoration: InputDecoration(
                   hintText: 'Select reminder time',
                   hintStyle: TextStyle(color: Colors.white70),
@@ -233,8 +260,32 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 375),
-              // Save Goal button
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  DateTime scheduleDate = DateTime.now().add(Duration(days: 1));
+                  NotificationService.ScheduleNotification(
+                    "Reminder",
+                    "You have Goals to Complete",
+                    scheduleDate,
+                  );
+                },
+                child: Text("Reminder Notification (DAILY)"),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  DateTime scheduleDate =
+                      DateTime.now().add(Duration(seconds: 2));
+                  NotificationService.ScheduleNotification(
+                    "Reminder",
+                    "You have Goals to Complete",
+                    scheduleDate,
+                  );
+                },
+                child: Text("Reminder Test"),
+              ),
+              SizedBox(height: 16),
               Container(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -249,4 +300,3 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     );
   }
 }
-
