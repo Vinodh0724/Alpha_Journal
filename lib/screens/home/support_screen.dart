@@ -161,17 +161,17 @@ class _SupportPageState extends State<SupportPage> {
       initialValue: email,
       decoration: InputDecoration(
         labelText: 'Email',
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: TextStyle(color: Colors.black),
         filled: true,
-        fillColor: Colors.white10,
+        fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Colors.grey),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
         ),
       ),
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.black),
       readOnly: true,
     );
   }
@@ -181,17 +181,17 @@ class _SupportPageState extends State<SupportPage> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: TextStyle(color: Colors.black),
         filled: true,
-        fillColor: Colors.white10,
+        fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Colors.grey),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
         ),
       ),
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.black),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter your $label';
@@ -209,17 +209,17 @@ class _SupportPageState extends State<SupportPage> {
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date (ddMMyyyy)',
-            labelStyle: TextStyle(color: Colors.white),
+            labelStyle: TextStyle(color: Colors.black),
             filled: true,
-            fillColor: Colors.white10,
+            fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.grey),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
             ),
           ),
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please select a date';
@@ -235,7 +235,7 @@ class _SupportPageState extends State<SupportPage> {
     return _image == null
         ? Text(
             'No image selected.',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
           )
         : Stack(
             alignment: Alignment.topRight,
